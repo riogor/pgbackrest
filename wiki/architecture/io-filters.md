@@ -20,6 +20,13 @@ Freeing an `IoFilter` frees its owned driver. `ioFilterDriver()` returns a borro
 
 Cover empty input, partial headers, small output buffers, repeated input, and final flushes in filter tests. See [encryption](../formats/encryption.md), [block incremental data](../formats/block-incremental.md), and [core runtime](core-runtime.md).
 
+## Focused guides
+
+- [Compression](../filters/compression.md)
+- [Cipher lifecycle](../crypto/cipher-lifecycle.md)
+- [Checksum purposes](../integrity/checksums.md)
+
+
 ## Source entry points
 
 - [src/common/io/filter/filter.intern.h](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/src/common/io/filter/filter.intern.h)

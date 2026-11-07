@@ -22,6 +22,16 @@ Shared types include `String`, `Buffer`, lists, variants, JSON, and `Pack`. `Str
 
 See [change guide](../development/change-guide.md) and the source coding standards for consistent ownership/naming practices.
 
+## Focused guides
+
+- [Memory contexts](../runtime/memory-contexts.md)
+- [Errors and retries](../runtime/errors-retry.md)
+- [Locks and stop markers](../runtime/locks-stop-state.md)
+- [Logging/statistics](../runtime/logging-statistics.md)
+- [Buffers/strings/identifiers](../runtime/buffers-strings.md)
+- [Pack encoding](../runtime/pack.md)
+
+
 ## Source entry points
 
 - [src/common/memContext.h](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/src/common/memContext.h)

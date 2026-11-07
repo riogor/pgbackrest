@@ -38,6 +38,12 @@ Meson requires OpenSSL >=1.1.1, libpq, libxml2, build-time libyaml, zlib, bzip2,
 
 CI uses a Meson unity build to expose visibility/symbol problems. Keep declarations and source lists compatible with both build routes. See [local environment](../environment/local.md) and [testing](testing.md).
 
+## Focused guides
+
+- [Generator pipeline](../build/generators.md)
+- [Documentation system](../build/documentation.md)
+
+
 ## Source entry points
 
 - [meson.build](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/meson.build)

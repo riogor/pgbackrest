@@ -26,6 +26,12 @@ GOST setup is version-dependent. Containers build an engine and retain a no-GOST
 
 Record the scope of local checks and distinguish them from matrix results. The [ADBM-3528 page](../fork/adbm-3528.md) gives a concrete historical example; [testing](testing.md) explains runner layers.
 
+## Focused guides
+
+- [Coverage and memory-check layers](../testing/coverage.md)
+- [Executable documentation](../build/documentation.md)
+
+
 ## Source entry points
 
 - [.github/workflows/test.yml](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/.github/workflows/test.yml)

@@ -22,6 +22,12 @@ When debugging, identify whether a size is logical file size, stored size, super
 
 See [manifests](manifests.md), [streaming filters](../architecture/io-filters.md), and [restore](../workflows/restore.md).
 
+## Focused guides
+
+- [Checksum purposes](../integrity/checksums.md)
+- [Compression](../filters/compression.md)
+
+
 ## Source entry points
 
 - [src/command/backup/blockIncr.h](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/src/command/backup/blockIncr.h)

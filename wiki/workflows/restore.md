@@ -22,6 +22,12 @@ The fork's `filter` option is validated for supported GPDB versions and affects 
 
 Actual restore can remove/replace target data. This page explains source flow, not a universal execution procedure. See [manifests](../formats/manifests.md), [block reconstruction](../formats/block-incremental.md), [encryption](../formats/encryption.md), and [partial restore](../fork/partial-restore.md).
 
+## Focused guides
+
+- [Target preparation](../restore/target-preparation.md)
+- [Recovery settings](../restore/recovery-settings.md)
+
+
 ## Source entry points
 
 - [src/command/restore/restore.c](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/src/command/restore/restore.c)

@@ -22,6 +22,14 @@ Validate stanza/archive identity before debugging codecs. Check destination dire
 
 GPDB filtered recovery can additionally transform WAL through version-specific processors. See [partial restore](../fork/partial-restore.md) and the [archive-get test walkthrough](../development/archive-get-example.md).
 
+## Focused guides
+
+- [WAL identity](../archive/wal-identity.md)
+- [Spool status](../archive/spool-status.md)
+- [Async push](../archive/async-push.md)
+- [Async get](../archive/async-get.md)
+
+
 ## Source entry points
 
 - [src/command/archive/push/push.c](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/src/command/archive/push/push.c)

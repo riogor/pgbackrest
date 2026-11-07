@@ -33,6 +33,8 @@ rg --files src/protocol test/src/common
 
 Generated `*.auto.*` files explain compiled behavior but have authoritative inputs elsewhere. The [build page](development/build.md) maps those inputs to outputs.
 
+For narrower implementation contracts, use the [detailed subsystem map](detailed-map.md).
+
 ## Source entry points
 
 - [src/main.c](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/src/main.c)

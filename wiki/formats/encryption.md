@@ -29,6 +29,12 @@ After a metadata load failure, `infoLoadErrorRethrow()` tries decrypting a known
 
 See [ADBM-3528](../fork/adbm-3528.md) for changed paths and [testing](../development/testing.md) for the separate enabled/disabled GOST configurations.
 
+## Focused guides
+
+- [Cipher ownership/finalization](../crypto/cipher-lifecycle.md)
+- [Metadata errors/fallback](../metadata/info-loading.md)
+
+
 ## Source entry points
 
 - [src/common/crypto/cipherBlock.c](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/src/common/crypto/cipherBlock.c)

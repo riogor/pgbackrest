@@ -30,6 +30,12 @@ Secure options are redacted in command logging. Tests commonly set repository pa
 
 To add an option, edit YAML/help, regenerate derived definitions, and test parsing and load-time interactions. See [build](../development/build.md) and [writing tests](../development/writing-tests.md).
 
+## Focused guides
+
+- [Schema rules](../configuration/schema.md)
+- [Generator pipeline](../build/generators.md)
+
+
 ## Source entry points
 
 - [src/build/config/config.yaml](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/src/build/config/config.yaml)

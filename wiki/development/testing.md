@@ -36,6 +36,14 @@ Between selected top-level runs, `testBegin()` checks leftover logs and clears t
 
 See [writing tests](writing-tests.md), [archive-get example](archive-get-example.md), and [CI](ci.md).
 
+## Focused guides
+
+- [Protocol shims](../testing/protocol-shims.md)
+- [libpq scripts](../testing/pq-scripts.md)
+- [Coverage/Valgrind](../testing/coverage.md)
+- [Storage fixtures](../testing/storage-fixtures.md)
+
+
 ## Source entry points
 
 - [test/test.pl](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/test/test.pl)

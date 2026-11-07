@@ -22,6 +22,12 @@ Consider parser/save behavior, defaults for older manifests, validation, renderi
 
 `info/manifestTest.c` covers serialization/build behavior; command tests cover consumers. See [block incremental data](block-incremental.md) for location fields and [encryption](encryption.md) for passphrase levels.
 
+## Focused guides
+
+- [Ancestry/resume](../backup/ancestry-resume.md)
+- [File-worker measurements](../backup/file-pipeline.md)
+
+
 ## Source entry points
 
 - [src/info/manifest.h](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/src/info/manifest.h)

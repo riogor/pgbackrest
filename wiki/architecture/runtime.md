@@ -24,6 +24,12 @@ Execution locality matters. `cmdBackup()` verifies repository locality where it 
 
 Read [configuration](configuration.md), [protocols](protocol.md), and [core runtime](core-runtime.md) for the supporting contracts.
 
+## Focused guides
+
+- [Command locks](../runtime/locks-stop-state.md)
+- [TLS services](../network/tls-services.md)
+
+
 ## Source entry points
 
 - [src/main.c](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/src/main.c)

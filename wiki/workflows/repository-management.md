@@ -26,6 +26,13 @@ Lower-level repository commands include `repo-get`, `repo-put`, `repo-ls`, `repo
 
 See [repository layout](../formats/repository.md), [manifests](../formats/manifests.md), and [encryption](../formats/encryption.md). Matching suites live under `test/src/module/command/`.
 
+## Focused guides
+
+- [Verification internals](../integrity/verification.md)
+- [Retention dependencies](../integrity/retention.md)
+- [Database history](../metadata/database-history.md)
+
+
 ## Source entry points
 
 - [src/command/stanza/create.c](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/src/command/stanza/create.c)

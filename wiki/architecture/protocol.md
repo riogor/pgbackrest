@@ -25,6 +25,13 @@ Transport may use local children, SSH, or configured TLS services. Remote storag
 
 Protocol harness shims run real handlers inside controlled child processes connected by pipes. They preserve worker coverage while giving tests predictable setup. See [testing](../development/testing.md).
 
+## Focused guides
+
+- [Session/handler lifecycle](../protocol/sessions.md)
+- [Pack fields](../runtime/pack.md)
+- [TLS authorization](../network/tls-services.md)
+
+
 ## Source entry points
 
 - [src/protocol/parallel.h](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/src/protocol/parallel.h)

@@ -22,6 +22,13 @@ Tests synthesize control/WAL data with `harnessPostgres` and script query behavi
 
 Read [Greenplum](../fork/greenplum.md) and [partial restore](../fork/partial-restore.md) before changing fork/version-specific behavior.
 
+## Focused guides
+
+- [Database history](../metadata/database-history.md)
+- [Standby backup](../backup/standby.md)
+- [libpq testing](../testing/pq-scripts.md)
+
+
 ## Source entry points
 
 - [src/postgres/client.c](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/src/postgres/client.c)

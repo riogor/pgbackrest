@@ -25,6 +25,17 @@ Reloading configuration can invalidate cached storage. The test harness calls `s
 
 See [I/O filters](io-filters.md) for byte transformations and [repository layout](../formats/repository.md) for persisted paths. Backend suites are under `test/src/module/storage/`.
 
+## Focused guides
+
+- [POSIX/CIFS](../storage/posix.md)
+- [S3](../storage/s3.md)
+- [Azure](../storage/azure.md)
+- [GCS](../storage/gcs.md)
+- [SFTP](../storage/sftp.md)
+- [Remote protocol storage](../storage/remote.md)
+- [HTTP requests](../network/http.md)
+
+
 ## Source entry points
 
 - [src/storage/storage.h](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/src/storage/storage.h)

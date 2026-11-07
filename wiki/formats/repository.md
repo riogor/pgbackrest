@@ -36,6 +36,12 @@ The diagram omits transient files, optional links, archive subdirectories, and c
 
 See [manifests](manifests.md), [block incremental](block-incremental.md), and [encryption](encryption.md). This layout is explanatory; do not manually edit repository metadata based on the diagram.
 
+## Focused guides
+
+- [Info-file loading](../metadata/info-loading.md)
+- [Database history](../metadata/database-history.md)
+
+
 ## Source entry points
 
 - [src/version.h](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/src/version.h)

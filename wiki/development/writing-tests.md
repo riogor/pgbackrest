@@ -32,6 +32,13 @@ Drivers borrowed from filters cannot outlive those filters. Test empty/flush/sma
 
 Extend the nearest suite with minimal structurally valid fixtures. Use `TEST_TITLE()` for a scenario sharing existing setup; a new `testBegin()` is appropriate for independent setup. See the [archive-get walkthrough](archive-get-example.md) and [CI](ci.md).
 
+## Focused guides
+
+- [Fixture contracts](../testing/storage-fixtures.md)
+- [Worker shims](../testing/protocol-shims.md)
+- [Coverage annotations](../testing/coverage.md)
+
+
 ## Source entry points
 
 - [test/src/common/harnessTest.h](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/test/src/common/harnessTest.h)

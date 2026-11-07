@@ -12,6 +12,10 @@ This wiki explains the Arenadata pgBackRest fork as a system: its components, da
 - [Source map](source-map.md): directories and starting points for common tasks.
 - [Runtime architecture](architecture/runtime.md): process roles and command dispatch.
 
+## Detailed subsystem guides
+
+The [detailed subsystem map](detailed-map.md) links 38 additional focused articles on runtime contracts, network services, individual storage backends, archive queues, backup/restore internals, metadata, integrity, and test harnesses.
+
 ## Architecture
 
 - [Configuration](architecture/configuration.md)

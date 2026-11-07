@@ -26,6 +26,13 @@ Backup ancestry (full/differential/incremental) differs from representation (who
 
 See [manifests](../formats/manifests.md), [block incremental](../formats/block-incremental.md), and [WAL archiving](wal-archive.md). Primary command coverage is in `test/src/module/command/backupTest.c` and related file/block suites.
 
+## Focused guides
+
+- [File workers](../backup/file-pipeline.md)
+- [Ancestry/resume](../backup/ancestry-resume.md)
+- [Standby backup](../backup/standby.md)
+
+
 ## Source entry points
 
 - [src/command/backup/backup.c](https://github.com/riogor/pgbackrest/blob/b8ce272231bac178ba39fffc8561b058ab150a0b/src/command/backup/backup.c)
