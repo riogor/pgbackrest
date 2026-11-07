@@ -1,6 +1,8 @@
 /***********************************************************************************************************************************
 Test Archive Get Command
 ***********************************************************************************************************************************/
+#include <openssl/opensslv.h>
+
 #include "common/io/fdRead.h"
 #include "common/io/fdWrite.h"
 
@@ -1194,8 +1196,16 @@ testRun(void)
         memset(bufPtr(buffer), 0, bufSize(buffer));
         bufUsedSet(buffer, bufSize(buffer));
 
-        const CipherType ciphers[] = {cipherTypeKuznyechikCbc, cipherTypeMagmaCbc};
-        for(unsigned int cipherIdx = 0; cipherIdx < LENGTH_OF(ciphers); cipherIdx++)
+        const CipherType ciphers[] =
+        {
+#if OPENSSL_VERSION_NUMBER >= 0x30000000L
+            cipherTypeKuznyechikCbc,
+#else
+            cipherTypeGrasshopperCbc,
+#endif
+            cipherTypeMagmaCbc,
+        };
+        for (unsigned int cipherIdx = 0; cipherIdx < LENGTH_OF(ciphers); cipherIdx++)
         {
             const CipherType currentCipher = ciphers[cipherIdx];
 
@@ -1227,7 +1237,10 @@ testRun(void)
             HRN_CFG_LOAD(cfgCmdArchiveGet, argList);
             hrnCfgEnvKeyRemoveRaw(cfgOptRepoCipherPass, 1);
 
+            HRN_STORAGE_PATH_CREATE(storagePgWrite(), "pg_wal", .noErrorOnExists = true);
+
             TEST_RESULT_INT(cmdArchiveGet(), 0, "get");
+            TEST_RESULT_LOG("P00   INFO: found 01ABCDEF01ABCDEF01ABCDEF in the repo1: 10-1 archive");
 
             TEST_RESULT_UINT(storageInfoP(storagePg(), STRDEF("pg_wal/RECOVERYXLOG")).size, 16 * 1024 * 1024, "check size");
             TEST_STORAGE_LIST(storagePgWrite(), "pg_wal", "RECOVERYXLOG\n", .remove = true);
