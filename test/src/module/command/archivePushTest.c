@@ -1,6 +1,8 @@
 /***********************************************************************************************************************************
 Test Archive Push Command
 ***********************************************************************************************************************************/
+#include <openssl/opensslv.h>
+
 #include "common/io/fdRead.h"
 #include "common/io/fdWrite.h"
 #include "common/time.h"
@@ -646,16 +648,24 @@ testRun(void)
 
     if (testBegin("cmdArchivePush() with GOST ciphers"))
     {
-        const CipherType ciphers[] = {cipherTypeKuznyechikCbc, cipherTypeMagmaCbc};
+        const CipherType ciphers[] =
+        {
+#if OPENSSL_VERSION_NUMBER >= 0x30000000L
+            cipherTypeKuznyechikCbc,
+#else
+            cipherTypeGrasshopperCbc,
+#endif
+            cipherTypeMagmaCbc,
+        };
         for (unsigned int cipherIdx = 0; cipherIdx < LENGTH_OF(ciphers); cipherIdx++)
         {
             const CipherType currentCipher = ciphers[cipherIdx];
 
-            Buffer* walBuffer2 = bufNew(1024);
+            Buffer *walBuffer2 = bufNew(1024);
             bufUsedSet(walBuffer2, bufSize(walBuffer2));
             memset(bufPtr(walBuffer2), 0xFF, bufSize(walBuffer2));
             HRN_PG_WAL_TO_BUFFER(walBuffer2, PG_VERSION_11);
-            const char* walBuffer2Sha1 = strZ(strNewEncode(encodingHex, cryptoHashOne(hashTypeSha1, walBuffer2)));
+            const char *walBuffer2Sha1 = strZ(strNewEncode(encodingHex, cryptoHashOne(hashTypeSha1, walBuffer2)));
             HRN_STORAGE_PUT(storageTest, "pg/pg_wal/000000010000000100000002", walBuffer2, .comment = "write WAL");
 
             StringList *argListTemp = strLstNew();
@@ -670,6 +680,8 @@ testRun(void)
             hrnCfgEnvKeyRemoveRaw(cfgOptRepoCipherPass, 1);
 
             THROW_ON_SYS_ERROR(chdir(strZ(cfgOptionStr(cfgOptPgPath))) != 0, PathMissingError, "unable to chdir()");
+
+            HRN_PG_CONTROL_PUT(storagePgWrite(), PG_VERSION_11);
 
             // repo2 is encrypted
             HRN_INFO_PUT(

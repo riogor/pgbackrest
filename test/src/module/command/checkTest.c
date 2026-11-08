@@ -1,6 +1,8 @@
 /***********************************************************************************************************************************
 Test Check Command
 ***********************************************************************************************************************************/
+#include <openssl/opensslv.h>
+
 #include "command/stanza/create.h"
 #include "info/infoArchive.h"
 #include "info/infoBackup.h"
@@ -777,8 +779,16 @@ testRun(void)
 
     if (testBegin("Verify GOST ciphers are working"))
     {
-        const CipherType ciphers[] = {cipherTypeKuznyechikCbc, cipherTypeMagmaCbc};
-        for(unsigned int cipherIdx = 0; cipherIdx < LENGTH_OF(ciphers); cipherIdx++)
+        const CipherType ciphers[] =
+        {
+#if OPENSSL_VERSION_NUMBER >= 0x30000000L
+            cipherTypeKuznyechikCbc,
+#else
+            cipherTypeGrasshopperCbc,
+#endif
+            cipherTypeMagmaCbc,
+        };
+        for (unsigned int cipherIdx = 0; cipherIdx < LENGTH_OF(ciphers); cipherIdx++)
         {
             const CipherType currentCipher = ciphers[cipherIdx];
 
@@ -790,6 +800,8 @@ testRun(void)
             hrnCfgArgRawStrId(argList, cfgOptRepoCipherType, currentCipher);
             hrnCfgEnvKeyRawZ(cfgOptRepoCipherPass, 1, TEST_CIPHER_PASS);
             HRN_CFG_LOAD(cfgCmdStanzaCreate, argList);
+
+            HRN_STORAGE_PATH_REMOVE(storageRepoIdxWrite(0), NULL, .recurse = true);
 
             // Create pg_control
             HRN_PG_CONTROL_PUT(storagePgIdxWrite(0), PG_VERSION_96);
