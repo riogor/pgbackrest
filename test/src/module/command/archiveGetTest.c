@@ -1,12 +1,11 @@
 /***********************************************************************************************************************************
 Test Archive Get Command
 ***********************************************************************************************************************************/
-#include <openssl/opensslv.h>
-
 #include "common/io/fdRead.h"
 #include "common/io/fdWrite.h"
 
 #include "common/harnessConfig.h"
+#include "common/harnessCrypto.h"
 #include "common/harnessFork.h"
 #include "common/harnessInfo.h"
 #include "common/harnessPostgres.h"
@@ -1196,18 +1195,9 @@ testRun(void)
         memset(bufPtr(buffer), 0, bufSize(buffer));
         bufUsedSet(buffer, bufSize(buffer));
 
-        const CipherType ciphers[] =
+        HRN_GOST_CIPHER_BEGIN(currentCipher)
         {
-#if OPENSSL_VERSION_NUMBER >= 0x30000000L
-            cipherTypeKuznyechikCbc,
-#else
-            cipherTypeGrasshopperCbc,
-#endif
-            cipherTypeMagmaCbc,
-        };
-        for (unsigned int cipherIdx = 0; cipherIdx < LENGTH_OF(ciphers); cipherIdx++)
-        {
-            const CipherType currentCipher = ciphers[cipherIdx];
+            TEST_TITLE_FMT("archive-get with %s", currentCipher.name);
 
             HRN_INFO_PUT(
                 storageRepoWrite(), INFO_ARCHIVE_PATH_FILE,
@@ -1248,6 +1238,7 @@ testRun(void)
                 storageRepoWrite(),
                 STORAGE_REPO_ARCHIVE "/10-1/01ABCDEF01ABCDEF01ABCDEF-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         }
+        HRN_GOST_CIPHER_END();
     }
 
     if (testBegin("wal Filter"))
