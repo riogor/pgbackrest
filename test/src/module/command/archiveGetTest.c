@@ -1209,17 +1209,17 @@ testRun(void)
                 "\n"
                 "[db:history]\n"
                 "1={\"db-id\":" HRN_PG_SYSTEMID_10_Z ",\"db-version\":\"10\"}",
-                .cipherType = currentCipher);
+                .cipherType = currentCipher.type);
 
             HRN_STORAGE_PUT(
                 storageRepoWrite(), STORAGE_REPO_ARCHIVE "/10-1/01ABCDEF01ABCDEF01ABCDEF-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                buffer, .cipherType = currentCipher, .cipherPass = TEST_CIPHER_PASS_ARCHIVE);
+                buffer, .cipherType = currentCipher.type, .cipherPass = TEST_CIPHER_PASS_ARCHIVE);
 
             // Add encryption options
             StringList *argList = strLstNew();
             hrnCfgArgRawZ(argList, cfgOptPgPath, TEST_PATH "/pg");
             hrnCfgArgKeyRawFmt(argList, cfgOptRepoPath, 1, TEST_PATH "/repo");
-            hrnCfgArgKeyRawStrId(argList, cfgOptRepoCipherType, 1, currentCipher);
+            hrnCfgArgKeyRawStrId(argList, cfgOptRepoCipherType, 1, currentCipher.type);
             hrnCfgEnvKeyRawZ(cfgOptRepoCipherPass, 1, TEST_CIPHER_PASS);
             hrnCfgArgRawZ(argList, cfgOptStanza, "test1");
             strLstAddZ(argList, "01ABCDEF01ABCDEF01ABCDEF");
