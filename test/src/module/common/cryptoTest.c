@@ -49,6 +49,19 @@ testRun(void)
     // *****************************************************************************************************************************
     if (testBegin("Common"))
     {
+        TEST_RESULT_STR_Z(cipherTypeToStr(cipherTypeNone), "none", "cipher name - none");
+        TEST_RESULT_STR_Z(cipherTypeToStr(cipherTypeAes128Cbc), "aes-128-cbc", "cipher name - aes-128-cbc");
+        TEST_RESULT_STR_Z(cipherTypeToStr(cipherTypeAes192Cbc), "aes-192-cbc", "cipher name - aes-192-cbc");
+        TEST_RESULT_STR_Z(cipherTypeToStr(cipherTypeAes256Cbc), "aes-256-cbc", "cipher name - aes-256-cbc");
+        TEST_RESULT_STR_Z(cipherTypeToStr(cipherTypeAria128Cbc), "aria-128-cbc", "cipher name - aria-128-cbc");
+        TEST_RESULT_STR_Z(cipherTypeToStr(cipherTypeAria192Cbc), "aria-192-cbc", "cipher name - aria-192-cbc");
+        TEST_RESULT_STR_Z(cipherTypeToStr(cipherTypeAria256Cbc), "aria-256-cbc", "cipher name - aria-256-cbc");
+        TEST_RESULT_STR_Z(cipherTypeToStr(cipherTypeSM4Cbc), "sm4-cbc", "cipher name - sm4-cbc");
+        TEST_RESULT_STR_Z(cipherTypeToStr(cipherTypeKuznyechikCbc), "kuznyechik-cbc", "cipher name - kuznyechik-cbc");
+        TEST_RESULT_STR_Z(cipherTypeToStr(cipherTypeGrasshopperCbc), "grasshopper-cbc", "cipher name - grasshopper-cbc");
+        TEST_RESULT_STR_Z(cipherTypeToStr(cipherTypeMagmaCbc), "magma-cbc", "cipher name - magma-cbc");
+        TEST_ERROR(cipherTypeToStr(strIdFromZ("bogus")), AssertError, "invalid cipher type 'bogus'");
+
         TEST_RESULT_VOID(cryptoInit(), "initialize crypto");
         TEST_RESULT_VOID(cryptoInit(), "initialize crypto again");
 

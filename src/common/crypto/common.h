@@ -46,6 +46,9 @@ typedef enum
 /***********************************************************************************************************************************
 Functions
 ***********************************************************************************************************************************/
+// Get the full cipher name
+FN_EXTERN String *cipherTypeToStr(CipherType cipherType);
+
 // Initialize crypto
 FN_EXTERN void cryptoInit(void);
 

@@ -65,53 +65,6 @@ cipherBlockToLog(const CipherBlock *const this, StringStatic *const debugLog)
     FUNCTION_LOG_OBJECT_FORMAT(value, cipherBlockToLog, buffer, bufferSize)
 
 /***********************************************************************************************************************************
-Decoding table
-***********************************************************************************************************************************/
-static const struct CipherTypeLocal
-{
-    CipherType type;                                                // Cipher type
-    const char *name;                                               // OpenSSL cipher name
-} cipherTypeLocal[] =
-{
-    {.type = cipherTypeAes128Cbc,      .name = "aes-128-cbc"},
-    {.type = cipherTypeAes192Cbc,      .name = "aes-192-cbc"},
-    {.type = cipherTypeAes256Cbc,      .name = "aes-256-cbc"},
-    {.type = cipherTypeKuznyechikCbc,  .name = "kuznyechik-cbc"},
-    {.type = cipherTypeGrasshopperCbc, .name = "grasshopper-cbc"},
-    {.type = cipherTypeMagmaCbc,       .name = "magma-cbc"},
-    {.type = cipherTypeAria128Cbc,     .name = "aria-128-cbc"},
-    {.type = cipherTypeAria192Cbc,     .name = "aria-192-cbc"},
-    {.type = cipherTypeAria256Cbc,     .name = "aria-256-cbc"},
-    {.type = cipherTypeSM4Cbc,         .name = "sm4-cbc"},
-};
-
-/***********************************************************************************************************************************
-Convert cipherId to cipherName as some of them are too long to be encoded
-***********************************************************************************************************************************/
-static String *
-cipherConvertFromIdToStr(const CipherType cipherType)
-{
-    FUNCTION_TEST_BEGIN();
-        FUNCTION_TEST_PARAM(STRING_ID, cipherType);
-    FUNCTION_TEST_END();
-
-    unsigned int typeIdx = 0;
-
-    for (; typeIdx < LENGTH_OF(cipherTypeLocal); typeIdx++)
-    {
-        if (cipherTypeLocal[typeIdx].type == cipherType)
-            break;
-    }
-
-    if (typeIdx == LENGTH_OF(cipherTypeLocal))
-        THROW_FMT(AssertError, "invalid cipher type '%s'", strZ(strIdToStr(cipherType)));
-
-    String *result = strNewZ(cipherTypeLocal[typeIdx].name);
-
-    FUNCTION_TEST_RETURN(STRING, result);
-}
-
-/***********************************************************************************************************************************
 Free cipher context
 ***********************************************************************************************************************************/
 static void
@@ -473,7 +426,10 @@ cipherBlockNew(const CipherMode mode, const CipherType cipherType, const Buffer 
 
     // Lookup cipher by name. This means the ciphers passed in must exactly match a name expected by OpenSSL. This is a good thing
     // since the name required by the openssl command-line tool will match what is used by pgBackRest.
-    String *const cipherTypeStr = cipherConvertFromIdToStr(cipherType);
+    if (cipherType == cipherTypeNone)
+        THROW_FMT(AssertError, "invalid cipher type '%s'", strZ(strIdToStr(cipherType)));
+
+    String *const cipherTypeStr = cipherTypeToStr(cipherType);
 #if OPENSSL_VERSION_NUMBER >= 0x30000000L
     // Fetch the cipher from a provider. Ciphers from legacy engines (e.g. GOST) cannot be fetched, so fall back to looking up the
     // name. Only a fetched cipher is owned and freed.

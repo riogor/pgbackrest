@@ -14,6 +14,54 @@ Crypto Common
 #include "common/log.h"
 
 /***********************************************************************************************************************************
+Canonical cipher names
+***********************************************************************************************************************************/
+static const struct CipherTypeLocal
+{
+    CipherType type;                                                // Cipher type
+    const char *name;                                               // OpenSSL cipher name
+} cipherTypeLocal[] =
+{
+    {.type = cipherTypeNone,          .name = "none"},
+    {.type = cipherTypeAes128Cbc,      .name = "aes-128-cbc"},
+    {.type = cipherTypeAes192Cbc,      .name = "aes-192-cbc"},
+    {.type = cipherTypeAes256Cbc,      .name = "aes-256-cbc"},
+    {.type = cipherTypeKuznyechikCbc,  .name = "kuznyechik-cbc"},
+    {.type = cipherTypeGrasshopperCbc, .name = "grasshopper-cbc"},
+    {.type = cipherTypeMagmaCbc,       .name = "magma-cbc"},
+    {.type = cipherTypeAria128Cbc,     .name = "aria-128-cbc"},
+    {.type = cipherTypeAria192Cbc,     .name = "aria-192-cbc"},
+    {.type = cipherTypeAria256Cbc,     .name = "aria-256-cbc"},
+    {.type = cipherTypeSM4Cbc,         .name = "sm4-cbc"},
+};
+
+/***********************************************************************************************************************************
+Get the full cipher name since some names are too long to be encoded in a StringId
+***********************************************************************************************************************************/
+FN_EXTERN String *
+cipherTypeToStr(const CipherType cipherType)
+{
+    FUNCTION_TEST_BEGIN();
+        FUNCTION_TEST_PARAM(STRING_ID, cipherType);
+    FUNCTION_TEST_END();
+
+    unsigned int typeIdx = 0;
+
+    for (; typeIdx < LENGTH_OF(cipherTypeLocal); typeIdx++)
+    {
+        if (cipherTypeLocal[typeIdx].type == cipherType)
+            break;
+    }
+
+    if (typeIdx == LENGTH_OF(cipherTypeLocal))
+        THROW_FMT(AssertError, "invalid cipher type '%s'", strZ(strIdToStr(cipherType)));
+
+    String *result = strNewZ(cipherTypeLocal[typeIdx].name);
+
+    FUNCTION_TEST_RETURN(STRING, result);
+}
+
+/***********************************************************************************************************************************
 Flag to indicate if OpenSSL has already been initialized
 ***********************************************************************************************************************************/
 static bool cryptoInitDone = false;
