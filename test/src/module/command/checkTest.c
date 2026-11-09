@@ -776,9 +776,9 @@ testRun(void)
             "HINT: did an error occur during stanza-upgrade?");
     }
 
-    if (testBegin("Verify GOST ciphers are working"))
+    if (testBegin("Verify ciphers are working"))
     {
-        HRN_GOST_CIPHER_BEGIN(currentCipher)
+        HRN_CIPHER_BEGIN(currentCipher)
         {
             TEST_TITLE_FMT("stanza create with %s", currentCipher.name);
 
@@ -804,7 +804,7 @@ testRun(void)
                     storageRepoIdx(0), PG_VERSION_96, HRN_PG_SYSTEMID_96, cfgOptionIdxStrId(cfgOptRepoCipherType, 0),
                     cfgOptionIdxStr(cfgOptRepoCipherPass, 0)), "stanza check - encryption");
         }
-        HRN_GOST_CIPHER_END();
+        HRN_CIPHER_END();
     }
 
     FUNCTION_HARNESS_RETURN_VOID();

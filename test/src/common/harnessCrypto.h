@@ -1,5 +1,5 @@
 /***********************************************************************************************************************************
-Harness for Loading Test Configurations
+Harness for testing different ciphers
 ***********************************************************************************************************************************/
 #ifndef TEST_COMMON_HARNESS_CRYPTO_H
 #define TEST_COMMON_HARNESS_CRYPTO_H
@@ -16,8 +16,9 @@ typedef struct HrnCipherTest
 } HrnCipherTest;
 
 /* Canonical names avoid alias-normalization warnings in command tests. */
-static const HrnCipherTest hrnGostCipherList[] =
+static const HrnCipherTest hrnCipherList[] =
 {
+	{.type = cipherTypeAes256Cbc, .name = "aes-256-cbc"},
 #if OPENSSL_VERSION_NUMBER >= 0x30000000L
     {.type = cipherTypeKuznyechikCbc, .name = "kuznyechik-cbc"},
 #else
@@ -26,17 +27,17 @@ static const HrnCipherTest hrnGostCipherList[] =
     {.type = cipherTypeMagmaCbc, .name = "magma-cbc"},
 };
 
-#define HRN_GOST_CIPHER_BEGIN(cipherParam)                               \
+#define HRN_CIPHER_BEGIN(cipherParam)                               \
     do                                                                   \
     {                                                                    \
-        for (unsigned int hrnGostCipherIdx = 0;                          \
-             hrnGostCipherIdx < LENGTH_OF(hrnGostCipherList);            \
-             hrnGostCipherIdx++)                                         \
+        for (unsigned int hrnCipherIdx = 0;                          \
+             hrnCipherIdx < LENGTH_OF(hrnCipherList);            \
+             hrnCipherIdx++)                                         \
         {                                                                \
             const HrnCipherTest cipherParam =                            \
-                hrnGostCipherList[hrnGostCipherIdx];
+                hrnCipherList[hrnCipherIdx];
 
-#define HRN_GOST_CIPHER_END()                                            \
+#define HRN_CIPHER_END()                                            \
         }                                                                \
     }                                                                    \
     while (0)

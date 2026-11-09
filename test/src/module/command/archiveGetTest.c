@@ -1187,7 +1187,7 @@ testRun(void)
         TEST_STORAGE_LIST_EMPTY(storageSpool(), STORAGE_SPOOL_ARCHIVE_IN);
     }
 
-    if (testBegin("cmdArchiveGet() with GOST ciphers"))
+    if (testBegin("cmdArchiveGet() with ciphers"))
     {
         HRN_PG_CONTROL_PUT(storagePgWrite(), PG_VERSION_10);
 
@@ -1195,7 +1195,7 @@ testRun(void)
         memset(bufPtr(buffer), 0, bufSize(buffer));
         bufUsedSet(buffer, bufSize(buffer));
 
-        HRN_GOST_CIPHER_BEGIN(currentCipher)
+        HRN_CIPHER_BEGIN(currentCipher)
         {
             TEST_TITLE_FMT("cmdArchiveGet() with %s", currentCipher.name);
 
@@ -1238,7 +1238,7 @@ testRun(void)
                 storageRepoWrite(),
                 STORAGE_REPO_ARCHIVE "/10-1/01ABCDEF01ABCDEF01ABCDEF-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         }
-        HRN_GOST_CIPHER_END();
+        HRN_CIPHER_END();
     }
 
     if (testBegin("wal Filter"))
