@@ -4002,27 +4002,27 @@ testRun(void)
                 TEST_RESULT_VOID(hrnCmdBackup(), "backup");
 
                 TEST_RESULT_LOG(strZ(strNewFmt(
-                    "P00   INFO: last backup label = 20191108-080000F, version = " PROJECT_VERSION "\n"
-                    "P00   WARN: diff backup cannot alter compress-type option to 'bz2', reset to value in 20191108-080000F\n"
-                    "P00   INFO: execute non-exclusive backup start: backup begins after the next regular checkpoint completes\n"
-                    "P00   INFO: backup start archive = 0000000105DC82D000000000, lsn = 5dc82d0/0\n"
-                    "P00   INFO: check archive for segment 0000000105DC82D000000000\n"
-                    "P00   WARN: file 'block-incr-grow' has same timestamp (1573200000) as prior but different size (prior 24576,"
-                    " current 49152), enabling delta checksum\n"
-                    "P01 DETAIL: match file from prior backup " TEST_PATH "/pg1/PG_VERSION (2B, [PCT]) checksum [SHA1]\n"
-                    "P01 DETAIL: backup file " TEST_PATH "/pg1/block-incr-grow (bundle 1/0, 48KB, [PCT]) checksum [SHA1]\n"
-                    "P01 DETAIL: match file from prior backup " TEST_PATH "/pg1/block-incr-wayback (16KB, [PCT]) checksum [SHA1]\n"
-                    "P01 DETAIL: backup file " TEST_PATH "/pg1/block-age-to-zero (bundle 1/128, 16KB, [PCT]) checksum [SHA1]\n"
-                    "P01 DETAIL: backup file " TEST_PATH "/pg1/block-age-multiplier (bundle 1/%u, 32KB, [PCT]) checksum [SHA1]\n"
-                    "P01 DETAIL: backup file " TEST_PATH "/pg1/global/pg_control (bundle 1/%u, 8KB, [PCT]) checksum [SHA1]\n"
-                    "P00 DETAIL: reference pg_data/PG_VERSION to 20191108-080000F\n"
-                    "P00 DETAIL: reference pg_data/block-incr-wayback to 20191108-080000F\n"
-                    "P00   INFO: execute non-exclusive backup stop and wait for all WAL segments to archive\n"
-                    "P00   INFO: backup stop archive = 0000000105DC82D000000001, lsn = 5dc82d0/300000\n"
-                    "P00 DETAIL: wrote 'backup_label' file returned from backup stop function\n"
-                    "P00   INFO: check archive for segment(s) 0000000105DC82D000000000:0000000105DC82D000000001\n"
-                    "P00   INFO: new backup label = 20191108-080000F_20191110-153320D\n"
-                    "P00   INFO: diff backup size = [SIZE], file total = 7", multiplierOffset, controlOffset)));
+                                         "P00   INFO: last backup label = 20191108-080000F, version = " PROJECT_VERSION "\n"
+                                         "P00   WARN: diff backup cannot alter compress-type option to 'bz2', reset to value in 20191108-080000F\n"
+                                         "P00   INFO: execute non-exclusive backup start: backup begins after the next regular checkpoint completes\n"
+                                         "P00   INFO: backup start archive = 0000000105DC82D000000000, lsn = 5dc82d0/0\n"
+                                         "P00   INFO: check archive for segment 0000000105DC82D000000000\n"
+                                         "P00   WARN: file 'block-incr-grow' has same timestamp (1573200000) as prior but different size (prior 24576,"
+                                         " current 49152), enabling delta checksum\n"
+                                         "P01 DETAIL: match file from prior backup " TEST_PATH "/pg1/PG_VERSION (2B, [PCT]) checksum [SHA1]\n"
+                                         "P01 DETAIL: backup file " TEST_PATH "/pg1/block-incr-grow (bundle 1/0, 48KB, [PCT]) checksum [SHA1]\n"
+                                         "P01 DETAIL: match file from prior backup " TEST_PATH "/pg1/block-incr-wayback (16KB, [PCT]) checksum [SHA1]\n"
+                                         "P01 DETAIL: backup file " TEST_PATH "/pg1/block-age-to-zero (bundle 1/128, 16KB, [PCT]) checksum [SHA1]\n"
+                                         "P01 DETAIL: backup file " TEST_PATH "/pg1/block-age-multiplier (bundle 1/%u, 32KB, [PCT]) checksum [SHA1]\n"
+                                         "P01 DETAIL: backup file " TEST_PATH "/pg1/global/pg_control (bundle 1/%u, 8KB, [PCT]) checksum [SHA1]\n"
+                                         "P00 DETAIL: reference pg_data/PG_VERSION to 20191108-080000F\n"
+                                         "P00 DETAIL: reference pg_data/block-incr-wayback to 20191108-080000F\n"
+                                         "P00   INFO: execute non-exclusive backup stop and wait for all WAL segments to archive\n"
+                                         "P00   INFO: backup stop archive = 0000000105DC82D000000001, lsn = 5dc82d0/300000\n"
+                                         "P00 DETAIL: wrote 'backup_label' file returned from backup stop function\n"
+                                         "P00   INFO: check archive for segment(s) 0000000105DC82D000000000:0000000105DC82D000000001\n"
+                                         "P00   INFO: new backup label = 20191108-080000F_20191110-153320D\n"
+                                         "P00   INFO: diff backup size = [SIZE], file total = 7", multiplierOffset, controlOffset)));
 
                 TEST_RESULT_STR_Z(
                     testBackupValidateP(
@@ -4042,7 +4042,8 @@ testRun(void)
                     "compare file list");
             }
 
-            // Ensure that disabling bundling does not break the backup. In particular this ensures the bundleRaw setting is preserved.
+            // Ensure that disabling bundling does not break the backup. In particular this ensures the bundleRaw setting is
+            // preserved.
             // -------------------------------------------------------------------------------------------------------------------------
             TEST_TITLE("online 11 incr backup with comp/enc which disables bundling");
 
@@ -4153,7 +4154,7 @@ testRun(void)
                 // Run backup
                 HRN_BACKUP_SCRIPT_SET(
                     {.op = hrnBackupScriptOpUpdate, .file = storagePathP(storagePg(), STRDEF("global/1")),
-                    .time = backupTimeStart + 1, .content = fileGrow});
+                     .time = backupTimeStart + 1, .content = fileGrow});
                 hrnBackupPqScriptP(
                     PG_VERSION_11, backupTimeStart, .walCompressType = compressTypeNone, .cipherType = currentCipher.type,
                     .cipherPass = TEST_CIPHER_PASS, .walTotal = 2, .walSwitch = true);
@@ -4163,20 +4164,20 @@ testRun(void)
                 TEST_RESULT_UINT(storageInfoP(storagePgWrite(), STRDEF("global/1")).size, 16384, "check global/1 grew");
 
                 TEST_RESULT_LOG(strZ(strNewFmt(
-                    "P00   INFO: execute non-exclusive backup start: backup begins after the next regular checkpoint completes\n"
-                    "P00   INFO: backup start archive = 0000000105DC9B4000000000, lsn = 5dc9b40/0\n"
-                    "P00   INFO: check archive for segment 0000000105DC9B4000000000\n"
-                    "P01 DETAIL: backup file " TEST_PATH "/pg1/global/2 (16KB, [PCT]) checksum [SHA1]\n"
-                    "P00   WARN: invalid page checksum found in file " TEST_PATH "/pg1/global/2 at page 3\n"
-                    "P01 DETAIL: backup file " TEST_PATH "/pg1/global/1 (12KB, [PCT]) checksum [SHA1]\n"
-                    "P01 DETAIL: backup file " TEST_PATH "/pg1/global/pg_control (bundle 1/0, 8KB, [PCT]) checksum [SHA1]\n"
-                    "P01 DETAIL: backup file " TEST_PATH "/pg1/PG_VERSION (bundle 1/%u, 2B, [PCT]) checksum [SHA1]\n"
-                    "P00   INFO: execute non-exclusive backup stop and wait for all WAL segments to archive\n"
-                    "P00   INFO: backup stop archive = 0000000105DC9B4000000001, lsn = 5dc9b40/300000\n"
-                    "P00 DETAIL: wrote 'backup_label' file returned from backup stop function\n"
-                    "P00   INFO: check archive for segment(s) 0000000105DC9B4000000000:0000000105DC9B4000000001\n"
-                    "P00   INFO: new backup label = 20191111-192000F\n"
-                    "P00   INFO: full backup size = [SIZE], file total = 5", versionOffset)));
+                                         "P00   INFO: execute non-exclusive backup start: backup begins after the next regular checkpoint completes\n"
+                                         "P00   INFO: backup start archive = 0000000105DC9B4000000000, lsn = 5dc9b40/0\n"
+                                         "P00   INFO: check archive for segment 0000000105DC9B4000000000\n"
+                                         "P01 DETAIL: backup file " TEST_PATH "/pg1/global/2 (16KB, [PCT]) checksum [SHA1]\n"
+                                         "P00   WARN: invalid page checksum found in file " TEST_PATH "/pg1/global/2 at page 3\n"
+                                         "P01 DETAIL: backup file " TEST_PATH "/pg1/global/1 (12KB, [PCT]) checksum [SHA1]\n"
+                                         "P01 DETAIL: backup file " TEST_PATH "/pg1/global/pg_control (bundle 1/0, 8KB, [PCT]) checksum [SHA1]\n"
+                                         "P01 DETAIL: backup file " TEST_PATH "/pg1/PG_VERSION (bundle 1/%u, 2B, [PCT]) checksum [SHA1]\n"
+                                         "P00   INFO: execute non-exclusive backup stop and wait for all WAL segments to archive\n"
+                                         "P00   INFO: backup stop archive = 0000000105DC9B4000000001, lsn = 5dc9b40/300000\n"
+                                         "P00 DETAIL: wrote 'backup_label' file returned from backup stop function\n"
+                                         "P00   INFO: check archive for segment(s) 0000000105DC9B4000000000:0000000105DC9B4000000001\n"
+                                         "P00   INFO: new backup label = 20191111-192000F\n"
+                                         "P00   INFO: full backup size = [SIZE], file total = 5", versionOffset)));
 
                 TEST_RESULT_STR_Z(
                     testBackupValidateP(

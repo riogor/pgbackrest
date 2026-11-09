@@ -18,7 +18,7 @@ typedef struct HrnCipherTest
 /* Canonical names avoid alias-normalization warnings in command tests. */
 static const HrnCipherTest hrnCipherList[] =
 {
-	{.type = cipherTypeAes256Cbc, .name = "aes-256-cbc"},
+    {.type = cipherTypeAes256Cbc, .name = "aes-256-cbc"},
 #if OPENSSL_VERSION_NUMBER >= 0x30000000L
     {.type = cipherTypeKuznyechikCbc, .name = "kuznyechik-cbc"},
 #else
