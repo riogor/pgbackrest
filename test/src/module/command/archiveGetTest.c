@@ -1219,7 +1219,7 @@ testRun(void)
             StringList *argList = strLstNew();
             hrnCfgArgRawZ(argList, cfgOptPgPath, TEST_PATH "/pg");
             hrnCfgArgKeyRawFmt(argList, cfgOptRepoPath, 1, TEST_PATH "/repo");
-            hrnCfgArgKeyRawStrId(argList, cfgOptRepoCipherType, 1, currentCipher.type);
+            hrnCfgArgRawZ(argList, cfgOptRepoCipherType, currentCipher.name);
             hrnCfgEnvKeyRawZ(cfgOptRepoCipherPass, 1, TEST_CIPHER_PASS);
             hrnCfgArgRawZ(argList, cfgOptStanza, "test1");
             strLstAddZ(argList, "01ABCDEF01ABCDEF01ABCDEF");

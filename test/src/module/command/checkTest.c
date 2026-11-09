@@ -787,7 +787,7 @@ testRun(void)
             hrnCfgArgRawZ(argList, cfgOptStanza, "test1");
             hrnCfgArgRawZ(argList, cfgOptPgPath, TEST_PATH "/pg");
             hrnCfgArgRawZ(argList, cfgOptRepoPath, TEST_PATH "/repo");
-            hrnCfgArgRawStrId(argList, cfgOptRepoCipherType, currentCipher.type);
+            hrnCfgArgRawZ(argList, cfgOptRepoCipherType, currentCipher.name);
             hrnCfgEnvKeyRawZ(cfgOptRepoCipherPass, 1, TEST_CIPHER_PASS);
             HRN_CFG_LOAD(cfgCmdStanzaCreate, argList);
 

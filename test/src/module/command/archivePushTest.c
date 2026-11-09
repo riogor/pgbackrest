@@ -662,7 +662,7 @@ testRun(void)
             hrnCfgArgRawZ(argListTemp, cfgOptStanza, "test");
             hrnCfgArgKeyRawZ(argListTemp, cfgOptPgPath, 1, TEST_PATH "/pg");
             hrnCfgArgKeyRawZ(argListTemp, cfgOptRepoPath, 1, TEST_PATH "/repo");
-            hrnCfgArgKeyRawStrId(argListTemp, cfgOptRepoCipherType, 1, currentCipher.type);
+            hrnCfgArgRawZ(argListTemp, cfgOptRepoCipherType, currentCipher.name);
             hrnCfgEnvKeyRawZ(cfgOptRepoCipherPass, 1, "badpassphrase");
             hrnCfgArgRawNegate(argListTemp, cfgOptCompress);
             strLstAddZ(argListTemp, "pg_wal/000000010000000100000002");
