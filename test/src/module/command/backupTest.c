@@ -4172,6 +4172,9 @@ testRun(void)
     if (testBegin("cmdBackup() with GOST ciphers"))
     {
         time_t backupTimeStart = BACKUP_EPOCH;
+        const String *pg1Path = STRDEF(TEST_PATH "/pg1");
+        const String *repoPath = STRDEF(TEST_PATH "/repo");
+        const String *pg2Path = STRDEF(TEST_PATH "/pg2");
 
         HRN_GOST_CIPHER_BEGIN(currentCipher)
         {
@@ -4223,7 +4226,7 @@ testRun(void)
                 // Run backup
                 HRN_BACKUP_SCRIPT_SET(
                     {.op = hrnBackupScriptOpUpdate, .file = storagePathP(storagePg(), STRDEF("global/1")),
-                    .time = backupTimeStart + 1, .content = fileGrow});
+                     .time = backupTimeStart + 1, .content = fileGrow});
                 hrnBackupPqScriptP(
                     PG_VERSION_11, backupTimeStart, .walCompressType = compressTypeNone, .cipherType = currentCipher.type,
                     .cipherPass = TEST_CIPHER_PASS, .walTotal = 2, .walSwitch = true);
