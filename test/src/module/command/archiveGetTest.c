@@ -1197,7 +1197,7 @@ testRun(void)
 
         HRN_GOST_CIPHER_BEGIN(currentCipher)
         {
-            TEST_TITLE_FMT("archive-get with %s", currentCipher.name);
+            TEST_TITLE_FMT("cmdArchiveGet() with %s", currentCipher.name);
 
             HRN_INFO_PUT(
                 storageRepoWrite(), INFO_ARCHIVE_PATH_FILE,

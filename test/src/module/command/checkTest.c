@@ -1,8 +1,6 @@
 /***********************************************************************************************************************************
 Test Check Command
 ***********************************************************************************************************************************/
-#include <openssl/opensslv.h>
-
 #include "command/stanza/create.h"
 #include "info/infoArchive.h"
 #include "info/infoBackup.h"
@@ -11,6 +9,7 @@ Test Check Command
 #include "storage/posix/storage.h"
 
 #include "common/harnessConfig.h"
+#include "common/harnessCrypto.h"
 #include "common/harnessInfo.h"
 #include "common/harnessPostgres.h"
 #include "common/harnessPq.h"
@@ -779,25 +778,16 @@ testRun(void)
 
     if (testBegin("Verify GOST ciphers are working"))
     {
-        const CipherType ciphers[] =
+        HRN_GOST_CIPHER_BEGIN(currentCipher)
         {
-#if OPENSSL_VERSION_NUMBER >= 0x30000000L
-            cipherTypeKuznyechikCbc,
-#else
-            cipherTypeGrasshopperCbc,
-#endif
-            cipherTypeMagmaCbc,
-        };
-        for (unsigned int cipherIdx = 0; cipherIdx < LENGTH_OF(ciphers); cipherIdx++)
-        {
-            const CipherType currentCipher = ciphers[cipherIdx];
+            TEST_TITLE_FMT("stanza create with %s", currentCipher.name);
 
             argList = strLstNew();
             hrnCfgArgRawBool(argList, cfgOptOnline, false);
             hrnCfgArgRawZ(argList, cfgOptStanza, "test1");
             hrnCfgArgRawZ(argList, cfgOptPgPath, TEST_PATH "/pg");
             hrnCfgArgRawZ(argList, cfgOptRepoPath, TEST_PATH "/repo");
-            hrnCfgArgRawStrId(argList, cfgOptRepoCipherType, currentCipher);
+            hrnCfgArgRawStrId(argList, cfgOptRepoCipherType, currentCipher.type);
             hrnCfgEnvKeyRawZ(cfgOptRepoCipherPass, 1, TEST_CIPHER_PASS);
             HRN_CFG_LOAD(cfgCmdStanzaCreate, argList);
 
@@ -814,6 +804,7 @@ testRun(void)
                     storageRepoIdx(0), PG_VERSION_96, HRN_PG_SYSTEMID_96, cfgOptionIdxStrId(cfgOptRepoCipherType, 0),
                     cfgOptionIdxStr(cfgOptRepoCipherPass, 0)), "stanza check - encryption");
         }
+        HRN_GOST_CIPHER_END();
     }
 
     FUNCTION_HARNESS_RETURN_VOID();

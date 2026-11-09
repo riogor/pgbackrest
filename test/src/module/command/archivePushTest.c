@@ -1,8 +1,6 @@
 /***********************************************************************************************************************************
 Test Archive Push Command
 ***********************************************************************************************************************************/
-#include <openssl/opensslv.h>
-
 #include "common/io/fdRead.h"
 #include "common/io/fdWrite.h"
 #include "common/time.h"
@@ -10,6 +8,7 @@ Test Archive Push Command
 #include "storage/posix/storage.h"
 
 #include "common/harnessConfig.h"
+#include "common/harnessCrypto.h"
 #include "common/harnessFork.h"
 #include "common/harnessInfo.h"
 #include "common/harnessPostgres.h"
@@ -648,18 +647,9 @@ testRun(void)
 
     if (testBegin("cmdArchivePush() with GOST ciphers"))
     {
-        const CipherType ciphers[] =
+        HRN_GOST_CIPHER_BEGIN(currentCipher)
         {
-#if OPENSSL_VERSION_NUMBER >= 0x30000000L
-            cipherTypeKuznyechikCbc,
-#else
-            cipherTypeGrasshopperCbc,
-#endif
-            cipherTypeMagmaCbc,
-        };
-        for (unsigned int cipherIdx = 0; cipherIdx < LENGTH_OF(ciphers); cipherIdx++)
-        {
-            const CipherType currentCipher = ciphers[cipherIdx];
+            TEST_TITLE_FMT("cmdArchivePush() with %s", currentCipher.name);
 
             Buffer *walBuffer2 = bufNew(1024);
             bufUsedSet(walBuffer2, bufSize(walBuffer2));
@@ -672,7 +662,7 @@ testRun(void)
             hrnCfgArgRawZ(argListTemp, cfgOptStanza, "test");
             hrnCfgArgKeyRawZ(argListTemp, cfgOptPgPath, 1, TEST_PATH "/pg");
             hrnCfgArgKeyRawZ(argListTemp, cfgOptRepoPath, 1, TEST_PATH "/repo");
-            hrnCfgArgKeyRawStrId(argListTemp, cfgOptRepoCipherType, 1, currentCipher);
+            hrnCfgArgKeyRawStrId(argListTemp, cfgOptRepoCipherType, 1, currentCipher.type);
             hrnCfgEnvKeyRawZ(cfgOptRepoCipherPass, 1, "badpassphrase");
             hrnCfgArgRawNegate(argListTemp, cfgOptCompress);
             strLstAddZ(argListTemp, "pg_wal/000000010000000100000002");
@@ -694,7 +684,7 @@ testRun(void)
                 "\n"
                 "[db:history]\n"
                 "1={\"db-id\":" HRN_PG_SYSTEMID_11_Z ",\"db-version\":\"11\"}",
-                .cipherType = currentCipher, .cipherPass = "badpassphrase");
+                .cipherType = currentCipher.type, .cipherPass = "badpassphrase");
 
             // Push encrypted WAL segment
             TEST_RESULT_VOID(cmdArchivePush(), "push the WAL segment");
@@ -704,6 +694,7 @@ testRun(void)
                 storageTest, zNewFmt("repo/archive/test/11-1/0000000100000001/000000010000000100000002-%s", walBuffer2Sha1),
                 .remove = true, .comment = "check repo for WAL file then remove");
         }
+        HRN_GOST_CIPHER_END();
     }
 
     // *****************************************************************************************************************************
