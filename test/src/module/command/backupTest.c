@@ -4174,7 +4174,6 @@ testRun(void)
         time_t backupTimeStart = BACKUP_EPOCH;
         const String *pg1Path = STRDEF(TEST_PATH "/pg1");
         const String *repoPath = STRDEF(TEST_PATH "/repo");
-        const String *pg2Path = STRDEF(TEST_PATH "/pg2");
 
         HRN_GOST_CIPHER_BEGIN(currentCipher)
         {
